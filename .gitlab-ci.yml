@@ -1,0 +1,10 @@
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r index.html images videos README.md public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

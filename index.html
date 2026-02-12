@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <title>Critical 5 – Data and Cybersecurity Portfolio – [Your Name]</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Critical 5 Data and Cybersecurity portfolio website for Tasks 1, 2 and 4: IoT Access, Network Traffic Capture, and Membership Inference Attack.">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-alt: #141a33;
+      --accent: #4fd1c5;
+      --accent-soft: rgba(79, 209, 197, 0.15);
+      --text: #f7fafc;
+      --muted: #a0aec0;
+      --border: #2d3748;
+    }
+    * {box-sizing: border-box; margin: 0; padding: 0;}
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a {color: var(--accent); text-decoration: none;}
+    a:hover {text-decoration: underline;}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 16, 32, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-brand {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .nav-links a {
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+    }
+    .nav-links a:hover {
+      background: var(--accent-soft);
+      text-decoration: none;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+    section {
+      padding: 2.5rem 0 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    h1 {font-size: 2rem; margin-bottom: 0.75rem;}
+    h2 {font-size: 1.5rem; margin-bottom: 0.75rem;}
+    h3 {font-size: 1.1rem; margin: 1.25rem 0 0.25rem;}
+    p {margin-bottom: 0.75rem; color: var(--muted);}
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.75rem;
+      align-items: flex-start;
+    }
+    @media (max-width: 800px) {
+      .grid {grid-template-columns: 1fr;}
+    }
+    /* Zoomable images */
+.gallery-item {
+  cursor: zoom-in;
+}
+
+#img-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;              /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#img-lightbox-img {
+  max-width: 95vw;
+  max-height: 95vh;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  border-radius: 0.75rem;
+  border: 1px solid #4fd1c5;
+  cursor: zoom-out;
+}
+
+
+
+    .card {
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--bg-alt), #0b1224);
+      padding: 1.25rem 1.2rem;
+      margin-bottom: 1.25rem;
+    }
+    .tag-row {display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.4rem;}
+    .tag {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    ul {margin: 0.25rem 0 0.75rem 1.1rem; color: var(--muted);}
+    li {margin-bottom: 0.3rem;}
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .video-wrapper {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+      padding-top: 56.25%;
+      margin-top: 0.75rem;
+    }
+    .video-wrapper iframe,
+    .video-wrapper video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    /* Horizontal slider gallery */
+.gallery {
+  position: relative;
+  margin-top: 0.75rem;
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 0.9rem;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item {
+  min-width: 260px;          /* visible card width */
+  max-width: 260px;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gallery-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.65rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.gallery-button {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+  padding: 0.25rem 0.7rem;
+  cursor: pointer;
+}
+
+.gallery-button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+    .caption {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.55rem 0.55rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      background: #050713;
+    }
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 2.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+    <!-- Image zoom overlay -->
+<div id="img-lightbox">
+    <img id="img-lightbox-img" src="" alt="">
+  </div>
+
+<header>
+  <nav class="nav">
+    <div class="nav-brand">Critical 5 · Cybersecurity Portfolio</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#brief">Project Brief</a>
+      <a href="#task1">Task 1 IoT</a>
+      <a href="#task2">Task 2 Traffic</a>
+      <a href="#task4">Task 4 MIA</a>
+      <a href="#videos">Videos</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home">
+    <div class="grid">
+      <div>
+        <span class="pill">BSc Data Science &amp; AI Year 3</span>
+        <h1>Critical 5 – Data and Cybersecurity Escape Rooms</h1>
+        <p>
+          This site presents my individual portfolio for the Critical 5 Data and Cybersecurity unit
+          (taught by Li Lin, UAL). It documents three completed rooms IoT access via social engineering,
+          insecure network traffic capture, and a membership inference attack on a deep-learning model
+          with evidence, mitigation plans and reflections.
+        </p>
+        <p>
+          The written portfolio PDF is submitted via Moodle as required; this website provides a
+          navigable overview, additional screenshots, and short demonstration videos.
+        </p>
+      </div>
+      <div>
+        <div class="card">
+          <h3>Quick links</h3>
+          <ul>
+            <li><strong>Chosen rooms:</strong> Task 1 IoT Access, Task 2 Packet Capture Forensics, Task 4 Membership Inference.</li>
+            <li><strong>Portfolio PDF:</strong> submitted as <code>Grace23028674DataandCybersecurity.pdf</code></li>
+            <li><strong>Evidence zip:</strong> includes videos (&le;5 min each), scripts and capture files as specified in the brief.</li>
+          </ul>
+          <h3>Git repository</h3>
+          <p>
+            Source code for this site and supporting scripts is hosted on Git.arts
+           
+            <a href="https://git.arts.ac.uk/23028674/C5-Website.git" target="_blank" rel="noopener">
+              
+            </a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIEF -->
+  <section id="brief">
+    <h2>Project Brief &amp; Flags</h2>
+    <div class="card">
+      <p>
+        The Critical 5 project is structured as a set of cybersecurity “escape rooms”. Each room hides a
+        short secret flag string that demonstrates the underlying vulnerability has been understood and exploited.
+        My aim was to recover the flags, analyse why the weaknesses exist, and design practical mitigation
+        and validation plans.
+      </p>
+      <div class="two-col">
+        <div>
+          <h3>Rooms attempted</h3>
+          <ul>
+            <li><strong>Task 1 IoT Temperature Data Access:</strong> accessed live sensor data and device controls using credentials obtained via social engineering.</li>
+            <li><strong>Task 2 Fignal Network Traffic Analysis:</strong> captured HTTP traffic, extracted credentials and message contents, and proposed secure redesign.</li>
+            <li><strong>Task 4 Membership Inference Attack:</strong> implemented a shadow_model attack against a ResNet18 classifier on CIFAR-10.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Key outcomes</h3>
+          <ul>
+            <li>Demonstrated end-to-end attack chains for each room (from discovery to exploitation and remediation).</li>
+            <li>Recovered all room flags and combined them into the final secret message (documented in the PDF portfolio).</li>
+            <li>Produced mitigation and validation plans that follow defence in depth and privacy by design principles.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASK 1 -->
+  <section id="task1">
+    <h2>Task 1 - IoT Temperature Data Access</h2>
+    <div class="card">
+      <div class="tag-row">
+        <span class="tag">IoT</span>
+        <span class="tag">Social engineering</span>
+        <span class="tag">HTTP APIs</span>
+      </div>
+      <h3>Goal &amp; threat model</h3>
+      <p>
+        Using Level 2 credentials discovered via password pattern analysis, I connected to the lab IoT
+        house network and accessed the environmental control API. The attacker is assumed to have WiFi
+        access and knowledge of default credentials but no physical access to the devices.
+      </p>
+
+      <h3>Approach</h3>
+      <ul>
+        <li>Joined the GL-SFT1200-253 network and verified local routing to the IoT gateway.</li>
+        <li>Used <code>curl</code> with HTTP headers for <code>Username</code> and <code>Password</code>
+            to read temperature, PM2.5, humidity and VOC index.</li>
+        <li>Injected spoofed sensor values to trigger automated fan and LED responses, then issued
+            direct commands to fan and LED topics for full manual control.</li>
+      </ul>
+
+      <h3>Key vulnerabilities</h3>
+      <ul>
+        <li>Static default credentials (<code>tom/jerry</code>) with full control permissions.</li>
+        <li>No role‑based access control or separation between read and write operations.</li>
+        <li>No server‑side validation of sensor ranges; arbitrary values trigger automations.</li>
+        <li>Plain HTTP traffic with no TLS and no audit logging of API activity.</li>
+      </ul>
+
+      <h3>Mitigation highlights</h3>
+      <ul>
+        <li>Introduce strong authentication with token‑based sessions and MFA for administrators.</li>
+        <li>Implement RBAC (Monitor / Operator / Admin) and strict sensor‑value validation rules.</li>
+        <li>Segment the network into sensor, control and management VLANs and enforce HTTPS with TLS.</li>
+        <li>Add anomaly detection and comprehensive audit logging for all API calls.</li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Evidence screenshots</h3>
+        <div class="gallery">
+          <!-- Evidence -->
+          <div class="gallery-item">
+            <img src="images/me.jpg" alt="Connecting to IoT lab network">
+            <div class="caption">Connecting to the GL‑SFT1200‑253 IoT lab network.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Temp.jpg" alt="Reading IoT sensor data">
+            <div class="caption">Reading live temperature and PM2.5 data via HTTP API.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Fan.jpg" alt="Fan control command">
+            <div class="caption">Spoofed PM2.5 triggers fan automation.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Red.jpg" alt="Red LED alert">
+            <div class="caption">High‑temperature alert via LED command.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Video demo (Task 1)</h3>
+        <p>Short walkthrough of connecting to the IoT environment, reading sensor data, and triggering devices.</p>
+        <div class="video-wrapper">
+          <!-- Option 1: embed from Panopto/YouTube/Vimeo -->
+          <!-- <iframe src="https://www.youtube.com/embed/XXXXXXXX" allowfullscreen></iframe> -->
+
+          <!-- Option 2: local MP4 in your repo -->
+          <video controls>
+            <source src="videos/task1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASK 2 -->
+  <section id="task2">
+    <h2>Task 2 – Fignal Network Traffic Analysis</h2>
+    <div class="card">
+      <div class="tag-row">
+        <span class="tag">Packet capture</span>
+        <span class="tag">Wireshark</span>
+        <span class="tag">Web security</span>
+      </div>
+      <h3>Goal &amp; approach</h3>
+      <p>
+        The Fignal room simulates an internal messaging service. By capturing loopback traffic with
+        Wireshark while the client and server communicate, I identified the server, extracted user
+        credentials, and analysed message contents.
+      </p>
+      <ul>
+        <li>Discovered the service at <code>192.168.100.72:5839</code> and confirmed all traffic was HTTP JSON.</li>
+        <li>Followed HTTP streams for <code>/api/login</code> to recover eight users’ full names,
+            usernames, passwords and departments, plus their client IP addresses.</li>
+        <li>Reconstructed message flows for <code>/api/messages</code>, including security alerts and
+            discussions of authentication bugs, all in plaintext.</li>
+      </ul>
+
+      <h3>Security findings</h3>
+      <ul>
+        <li>Credentials and messages transmitted in clear text, no HTTPS/TLS.</li>
+        <li>No rate‑limiting, account lockout or CAPTCHA to slow brute‑force attacks.</li>
+        <li>Predictable sequential user IDs and lack of message authentication, enabling spoofing.</li>
+        <li>Potential for session hijacking if cookies or tokens were used over HTTP.</li>
+      </ul>
+
+      <h3>Mitigation highlights</h3>
+      <ul>
+        <li>Deploy HTTPS with strong TLS and disable plain HTTP access to the API.</li>
+        <li>Hash passwords and replace repeated password transmission with signed JWT tokens.</li>
+        <li>Implement end‑to‑end encryption for particularly sensitive messages.</li>
+        <li>Enforce firewall rules restricting server access to authorised IP ranges only.</li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Wireshark evidence</h3>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="images/protocol-hierarchy.jpg" alt="Protocol hierarchy">
+            <div class="caption">Protocol hierarchy: IPv4 → TCP → HTTP, no TLS observed.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/login-credentials.png" alt="Login credentials in HTTP">
+            <div class="caption">Plaintext JSON credentials in a POST /api/login request.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/message-content.png" alt="Message content">
+            <div class="caption">Sensitive bug report visible in HTTP payload.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/source-ip-address.png" alt="Source IP mapping">
+            <div class="caption">Mapping source IPs to named users.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Video demo (Task 2)</h3>
+        <p>Packet capture and extraction of credentials and messages from the Fignal server.</p>
+        <div class="video-wrapper">
+          <video controls>
+            <source src="videos/Task2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASK 4 -->
+  <section id="task4">
+    <h2>Task 4 – Membership Inference Attack</h2>
+    <div class="card">
+      <div class="tag-row">
+        <span class="tag">Machine learning</span>
+        <span class="tag">Privacy</span>
+        <span class="tag">ResNet18</span>
+      </div>
+      <h3>Objective</h3>
+      <p>
+        This room demonstrates privacy leakage in ML. Using a ResNet18 trained on CIFAR-10, the aim was to infer whether a sample was in the model’s training set by looking at its prediction behaviour (member vs non-member).
+      </p>
+
+      <h3>Methodology</h3>
+      <p> I trained three shadow models on disjoint CIFAR-10 subsets to approximate how the target behaves, then built an attack dataset from their prediction outputs. From each prediction I extracted confidence-style features (e.g., max probability, entropy, and confidence gap) and trained an attack classifier. Finally, I ran evaluate.py to test whether the trained attack model could generalise to the unseen target model.</p>
+
+      <h3>Findings &amp; implications</h3>
+      <p>A key early lesson was that the baseline “83.33% accuracy” was misleading due to a 5:1 IN:OUT imbalance (the attack could succeed by always predicting IN). After balancing the data and using multiple shadows, the attack became meaningful and achieved strong IN/OUT separation, showing that overfitting and confidence differences can leak membership. In sensitive domains (healthcare/finance), this kind of leakage could expose whether someone’s data was used for training, raising GDPR-style privacy concerns.</p>
+
+      <h3>Defence strategies</h3>
+      <p>To reduce leakage, the target model should be less overfit (early stopping, weight decay, and dropout) so the train-test gap shrinks. Inference-time calibration like temperature scaling can also soften confidence/entropy signals that attacks rely on. For stronger protection, DP training (where feasible) and routine privacy testing should be part of a privacy-by-design workflow.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Planned figures</h3>
+        <p>
+          Below are the training curves and evaluation confusion-matrix style results for the shadow models
+          and the attack model (baseline + improvements). Click any image to zoom.
+        </p>
+      
+        <div class="gallery" data-visible="3">
+          <div class="gallery-track" id="task4-track">
+            <div class="gallery-item">
+              <img src="images/training_shadow_result.png" alt="Shadow models training curve">
+              <div class="caption">Shadow models training: Train ~99% vs Test ~30% (large gap → strong overfitting).</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/training_attack_result_baseline.png" alt="Attack model training curve (baseline)">
+              <div class="caption">Attack training (baseline): accuracy plateau suggests majority-class shortcut risk.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/evaluate_baseline.png" alt="Attack evaluation (baseline)">
+              <div class="caption">Baseline evaluation: IN predicted correctly, OUT often misclassified (biased toward IN).</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/training_attack_result_improvement1.png" alt="Attack model training curve (improvement 1)">
+              <div class="caption">Improvement 1 training: after balancing, model must learn real membership signals.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/evaluate_improvement1.png" alt="Attack evaluation (improvement 1)">
+              <div class="caption">Improvement 1 evaluation: better IN/OUT separation than baseline.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/training_attack_result_improvement2.png" alt="Attack model training curve (improvement 2)">
+              <div class="caption">Improvement 2 training: tuning architecture/regularisation to improve generalisation.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/evaluate_improvement2.png" alt="Attack evaluation (improvement 2)">
+              <div class="caption">Improvement 2 evaluation: increased OUT accuracy → stronger overall attack.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/training_attack_result_improvement3.png" alt="Attack model training curve (improvement 3)">
+              <div class="caption">Improvement 3 training: higher stability across epochs with tuned hyperparameters.</div>
+            </div>
+      
+            <div class="gallery-item">
+              <img src="images/evaluate_improvement3.png" alt="Attack evaluation (improvement 3)">
+              <div class="caption">Improvement 3 evaluation: strongest overall performance with better balance of IN/OUT.</div>
+            </div>
+          </div>
+      
+          <div class="gallery-nav">
+            <button class="gallery-button" id="task4-prev">&larr; Previous</button>
+            <span>Slide to view Task 4 figures</span>
+            <button class="gallery-button" id="task4-next">Next &rarr;</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Video demo (Task 4)</h3>
+        <p>Console‑level walkthrough of training shadow models and running the membership inference attack.</p>
+        <div class="video-wrapper">
+          <video controls>
+            <source src="videos/Task4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos">
+    <h2>Video Evidence</h2>
+    <div class="card">
+      <p>
+        The brief allows short videos (up to five minutes per task) as evidence of work.
+        Below are embedded copies of the three demonstrations submitted in the evidence ZIP.
+      </p>
+      <ul>
+        <li><a href="#task1">Task 1 – IoT Access</a>: network connection, sensor reading, and device control.</li>
+        <li><a href="#task2">Task 2 – Fignal Traffic</a>: packet capture and credential/message extraction.</li>
+        <li><a href="#task4">Task 4 – Membership Inference</a>: training and evaluation pipeline.</li>
+      </ul>
+      <p>
+        For accessibility, each video is also available as a direct download link in the evidence ZIP
+        submitted alongside the PDF portfolio.
+      </p>
+    </div>
+  </section>
+
+  <!-- GALLERY / PORTFOLIO -->
+  <section id="gallery">
+    <h2>Gallery &amp; Additional Evidence</h2>
+    <div class="card">
+      <p>
+        This gallery collects additional screenshots that did not fit into the main report but help
+        document the overall workflow and environment.
+      </p>
+  
+      <div class="gallery" data-visible="3">
+        <div class="gallery-track" id="gallery-track">
+          <div class="gallery-item">
+            <img src="images/Brute-force-lab.jpg" alt="Brute-force lab">
+            <div class="caption">Brute‑force lab environment used to obtain Level‑2 credentials.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Server-Client-running.jpg" alt="Server and client running">
+            <div class="caption">Fignal server and client traffic during Wireshark capture.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/http-filter.png" alt="HTTP filter in Wireshark">
+            <div class="caption">HTTP filter applied in Wireshark to focus on application traffic.</div>
+          </div>
+          <!-- extra photos -->
+          <div class="gallery-item">
+            <img src="images/message-sent.png" alt="Message sent">
+            <div class="caption">Successful message delivery in the Fignal client.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Network-setup.png" alt="Network setup">
+            <div class="caption">Loopback capture setup for Fignal server analysis.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/task1-connect-to-env.png" alt="Task 1 environment">
+            <div class="caption">IoT environment configuration in Task 1.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Green.jpg" alt="Green LED">
+            <div class="caption">LED colour change verification during IoT control tests.</div>
+          </div>
+          <div class="gallery-item">
+            <img src="images/Client-output.png" alt="Green LED">
+            <div class="caption">Client output.</div>
+          </div>
+        </div>
+        <div class="gallery-nav">
+          <button class="gallery-button" id="gallery-prev">&larr; Previous</button>
+          <span>Slide to view more screenshots</span>
+          <button class="gallery-button" id="gallery-next">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About this site</h2>
+    <div class="card">
+      <p>
+        This static website is hosted on the UAL git.arts server as part of the Critical 5 Data and
+        Cybersecurity assessment. It is intended to complement, not replace, the formal PDF portfolio
+        submitted via Moodle.
+      </p>
+      <p>
+        Source code, Markdown, and configuration files are stored in the following Git repository:
+        <br>
+        
+        <a href="https://git.arts.ac.uk/23028674/C5-Website.git" target="_blank" rel="noopener">
+          https://git.arts.ac.uk/23028674/C5-Website.git
+        </a>
+      </p>
+      <p>
+        Student: Grace Nguyen · 23028674 · BSc Data Science and AI, Year 3.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Critical 5 Data and Cybersecurity · Portfolio website by Grace Nguyen.</p>
+  <p>All work conducted inside the authorised lab environment for teaching purposes only.</p>
+</footer>
+<script>
+    // Simple horizontal slider for gallery
+    document.addEventListener("DOMContentLoaded", function () {
+      const track = document.getElementById("gallery-track");
+      const prevBtn = document.getElementById("gallery-prev");
+      const nextBtn = document.getElementById("gallery-next");
+  
+      if (!track || !prevBtn || !nextBtn) return;
+  
+      const items = track.querySelectorAll(".gallery-item");
+      const visibleCount = 3;       // how many cards roughly visible at once
+      let index = 0;
+  
+      function updateButtons() {
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index >= items.length - visibleCount;
+      }
+  
+      function updatePosition() {
+        const itemWidth = items[0].getBoundingClientRect().width + 0.9 * 16; // width + gap (0.9rem)
+        track.style.transform = `translateX(-${index * itemWidth}px)`;
+        updateButtons();
+      }
+  
+      prevBtn.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          updatePosition();
+        }
+      });
+  
+      nextBtn.addEventListener("click", () => {
+        if (index < items.length - visibleCount) {
+          index++;
+          updatePosition();
+        }
+      });
+  
+      // Initialise
+      updateButtons();
+    });
+  </script>
+  
+<script>
+    // Make all gallery images zoomable
+    document.addEventListener("DOMContentLoaded", function () {
+      const lightbox = document.getElementById("img-lightbox");
+      const lightboxImg = document.getElementById("img-lightbox-img");
+      const zoomables = document.querySelectorAll(".gallery-item img");
+  
+      zoomables.forEach(img => {
+        img.addEventListener("click", () => {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.style.display = "flex";
+        });
+      });
+  
+      // Click anywhere on overlay to close
+      lightbox.addEventListener("click", () => {
+        lightbox.style.display = "none";
+        lightboxImg.src = "";
+      });
+    });
+  </script>
+  <script>
+    // Horizontal slider for Task 4 figures
+    document.addEventListener("DOMContentLoaded", function () {
+      const track = document.getElementById("task4-track");
+      const prevBtn = document.getElementById("task4-prev");
+      const nextBtn = document.getElementById("task4-next");
+  
+      if (!track || !prevBtn || !nextBtn) return;
+  
+      const items = track.querySelectorAll(".gallery-item");
+      const visibleCount = 3;
+      let index = 0;
+  
+      function updateButtons() {
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index >= items.length - visibleCount;
+      }
+  
+      function updatePosition() {
+        const itemWidth = items[0].getBoundingClientRect().width + 0.9 * 16;
+        track.style.transform = `translateX(-${index * itemWidth}px)`;
+        updateButtons();
+      }
+  
+      prevBtn.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          updatePosition();
+        }
+      });
+  
+      nextBtn.addEventListener("click", () => {
+        if (index < items.length - visibleCount) {
+          index++;
+          updatePosition();
+        }
+      });
+  
+      updateButtons();
+    });
+  </script>
+  
+  </body>
+  </html>
+  
+</body>
+</html>

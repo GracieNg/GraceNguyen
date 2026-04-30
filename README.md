@@ -1,14 +1,5 @@
-# Critical 5 – Data and Cybersecurity Portfolio Website (C5)
+# Data and Cybersecurity Portfolio Website (C5)
 
-Static portfolio website for **Critical 5: Data and Cybersecurity** (UAL).  
-This site complements the **submitted PDF portfolio on Moodle** by providing a navigable overview, screenshots, and short demo videos for the selected escape-room tasks.
-
-## Student
-- **Name:** Grace Nguyen  
-- **Student ID:** 23028674  
-- **Programme:** BSc Data Science and AI (Year 3)
-
----
 
 ## Tasks Covered
 This website documents three completed rooms:
